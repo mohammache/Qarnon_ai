@@ -1,0 +1,45 @@
+name: Build APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Enable Yarn
+        run: |
+          corepack enable
+          yarn --version
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Gradle permission
+        run: chmod +x android/gradlew
+
+      - name: Build APK
+        run: cd android && ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: qarnonai-apk
+          path: android/app/build/outputs/apk/debug/*.apk

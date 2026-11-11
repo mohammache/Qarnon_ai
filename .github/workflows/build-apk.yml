@@ -48,6 +48,13 @@ jobs:
                   "android_client_info": { "package_name": "com.pocketpalai" }
                 },
                 "api_key": [{ "current_key": "dummy" }]
+              },
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:000000000000:android:0000000000000001",
+                  "android_client_info": { "package_name": "com.pocketpalai.e2e" }
+                },
+                "api_key": [{ "current_key": "dummy" }]
               }
             ],
             "configuration_version": "1"
